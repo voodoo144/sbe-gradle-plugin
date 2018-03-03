@@ -13,7 +13,7 @@ final class Util {
     }
 
     static ConfigurableFileTree tree(Project project, Src src) {
-        def m = [dir: src.dir]
+        def m = [dir: src.dir, includes: ['*.xml']]
         if (src.includes) {
             m.put('includes', src.includes)
         }
@@ -35,8 +35,8 @@ final class Util {
     static Configuration sbeDependency(Project project,
             SbeGeneratorPluginExtension extension, String configName) {
         def config = project.getConfigurations().maybeCreate(configName)
-        project.getDependencies().add(config.getName(),
-                SBE_ARTIFACT + extension.sbeVersion)
+        project.getDependencies().add(config.getName(), SBE_ALL_ARTIFACT)
+        project.getDependencies().add(config.getName(), SBE_TOOL_ARTIFACT)
         return config;
     }
 
@@ -46,7 +46,7 @@ final class Util {
             return project.files(config.getFiles())
         } catch (final Exception ex) {
             throw new IllegalArgumentException(
-            "SBE version '$extension.sbeVersion' not found")
+                "SBE '$SBE_VERSION' not found", ex)
         }
     }
 }

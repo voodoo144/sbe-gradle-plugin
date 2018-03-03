@@ -2,18 +2,36 @@ plugins {
     id 'groovy'
     id 'java-gradle-plugin'
     id 'eclipse'
+    id 'maven-publish'
+    id 'ivy-publish'
 }
 
 repositories {
+    mavenLocal()
     jcenter()
     mavenCentral()
 }
-  
+
 group   = artifact_group
-version = "${artifact_version}"
+version = artifact_version
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+gradlePlugin {
+    plugins {
+        sbeGenerator {
+            id = 'sbe-generator-plugin'
+            implementationClass = 'vontikov.SbeGeneratorPlugin'
+        }
+    }
+}
+
+publishing {
+    repositories {
+        mavenLocal()
+    }
+}
 
 task createClasspathManifest {
     def outputDir = file("$buildDir/$name")
@@ -23,7 +41,7 @@ task createClasspathManifest {
 
     doLast {
         outputDir.mkdirs()
-        file("$outputDir/plugin-classpath.txt").text = 
+        file("$outputDir/plugin-classpath.txt").text =
                 sourceSets.main.runtimeClasspath.join('\n')
     }
 }
@@ -37,5 +55,8 @@ dependencies {
     testRuntime files(createClasspathManifest)
 }
 
-defaultTasks 'clean', 'build'
+clean.doFirst {
+    delete "${rootDir}/src/test/resources/projects/generator/build/"
+}
 
+defaultTasks 'clean', 'build'
