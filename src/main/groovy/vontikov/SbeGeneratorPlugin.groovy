@@ -118,7 +118,7 @@ class SbeGeneratorPlugin implements Plugin<Project> {
             description = 'Packs compiled Java stubs'
 
             from {
-                project.files(ext.javaClassesDir)
+                project.files(ext.javaClassesDir, ext.javaGenDir)
             }
 
             destinationDir = project.file(ext.archivesDir)

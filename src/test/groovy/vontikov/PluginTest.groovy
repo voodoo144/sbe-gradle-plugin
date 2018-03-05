@@ -144,8 +144,15 @@ class PluginTest {
         def classes = project.zipTree(archiveName).files.name.toSet()
         classes.removeAll { it.contains('$') }
 
-        assertThat(classes, hasSize(6));
+        assertThat(classes, hasSize(11));
         assertThat(classes, hasItem('MANIFEST.MF'))
+
+        assertThat(classes, hasItem('MessageHeaderDecoder.java'))
+        assertThat(classes, hasItem('MessageHeaderEncoder.java'))
+        assertThat(classes, hasItem('MetaAttribute.java'))
+        assertThat(classes, hasItem('MsgDecoder.java'))
+        assertThat(classes, hasItem('MsgEncoder.java'))
+
         assertThat(classes, hasItem('MessageHeaderDecoder.class'))
         assertThat(classes, hasItem('MessageHeaderEncoder.class'))
         assertThat(classes, hasItem('MetaAttribute.class'))
@@ -188,10 +195,6 @@ class PluginTest {
     }
 
     private void before(File projectDir) {
-        def buildDir = new File(projectDir, 'build')
-        if(buildDir.exists())  {
-            buildDir.deleteDir()
-        }
-        buildDir.delete()
+        new File(projectDir, 'build').deleteDir()
     }
 }

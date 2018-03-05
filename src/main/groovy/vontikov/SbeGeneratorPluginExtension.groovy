@@ -26,14 +26,18 @@ class Src {
 class SbeGeneratorPluginExtension {
 
     Src src = new Src(DEFAULT_SRC_DIR)
+
     String targetNamespace
+
     String javaGenDir = DEFAULT_JAVA_GEN_DIR
-    String cppGenDir = DEFAULT_CPP_GEN_DIR
     String javaClassesDir = DEFAULT_JAVA_CLASSES_DIR
     String javaSourceCompatibility = DEFAULT_JAVA_SOURCE_COMPATIBILITY
     String javaTargetCompatibility = DEFAULT_JAVA_TARGET_COMPATIBILITY
-    String archivesDir = DEFAULT_ARCHIVES_DIR
+
+    String cppGenDir = DEFAULT_CPP_GEN_DIR
     String cppCmakeDir = DEFAULT_CPP_CMAKE_PROJECT_DIR
+
+    String archivesDir = DEFAULT_ARCHIVES_DIR
 
     SbeGeneratorPluginExtension(Project project) {
     }
