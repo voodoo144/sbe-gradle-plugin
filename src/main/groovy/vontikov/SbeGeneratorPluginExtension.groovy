@@ -12,9 +12,9 @@ import groovy.transform.ToString
 @ToString(includeFields = true, includeNames = true)
 class Src {
 
-    final String dir
-    final Iterable includes
-    final Iterable excludes
+    String dir
+    Iterable includes
+    Iterable excludes
 
     Src(String dir, Iterable includes = [], Iterable excludes = []) {
         this.dir = dir
